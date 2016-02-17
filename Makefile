@@ -37,13 +37,21 @@ tmp/pcedt_treex_unaligned/done : tmp/pcedt_structured/done | orig_data/schema
 
 ########### FIND OUT IF THERE ARE DIFFERENT IDS IN THE OLD AND THE NEW PCEDT ##################
 
-old_new.en.ids.diff :
-	zcat /net/data/pcedt2.0/data/*/*.treex.gz | grep -P "id=.EnglishT" | grep -v "reffile" | sed 's/^.*"\(.*\)".*$$/\1/' | sort > old.en.ids.txt
-	zcat tmp/pcedt_structured/*/wsj_*.en.t.gz | grep -P "id=.EnglishT" | grep -v "reffile" | sed 's/^.*"\(.*\)".*$$/\1/' | sort > new.en.ids.txt
-	diff old.en.ids.txt new.en.ids.txt > $@
+#------- all ids --------------#
+#old_new.en.ids.diff :
+#	zcat /net/data/pcedt2.0/data/*/*.treex.gz | grep -P "id=.EnglishT" | grep -v "reffile" | sed 's/^.*"\(.*\)".*$$/\1/' | sort > old.en.ids.txt
+#	zcat tmp/pcedt_structured/*/wsj_*.en.t.gz | grep -P "id=.EnglishT" | grep -v "reffile" | sed 's/^.*"\(.*\)".*$$/\1/' | sort > new.en.ids.txt
+#	diff old.en.ids.txt new.en.ids.txt > $@
 
-new.en_cs.ids.coref_chains.txt : tmp/pcedt_treex_unaligned/done
+old.en_cs.id_tlemma.all.txt : /net/data/pcedt2.0/data
+	treex $(LRC_FLAG) \
+		Read::Treex from='!$</*/*.treex.gz' \
+		Util::Eval tnode='print $$tnode->id."\t".$$tnode->t_lemma."\n";' > old.en_cs.id_tlemma.all.unsorted.txt
+	cat old.en_cs.id_tlemma.all.unsorted.txt | sort > $@
+
+new.en_cs.id_tlemma.coref.txt : tmp/pcedt_treex_unaligned/done
 	treex $(LRC_FLAG) \
 		Read::Treex from='!$(dir $<)/*/wsj_*.treex.gz' \
-		Util::Eval doc='use Treex::Tool::Coreference::Utils; my @bundles = $$doc->get_bundles; my @en_ttrees = map {($$_->get_tree("en","t",""), $$_->get_tree("cs","t",""))} @bundles; my @en_chains = Treex::Tool::Coreference::Utils::get_coreference_entities(\@en_ttrees, {ordered => "topological"}); foreach my $$chain (@en_chains) { foreach my $$tnode (@$$chain) { print $$tnode->id."\n"; } print "\n"; }' \
-		> $@
+		Util::Eval doc='use Treex::Tool::Coreference::Utils; my @bundles = $$doc->get_bundles; my @en_ttrees = map {($$_->get_tree("en","t",""), $$_->get_tree("cs","t",""))} @bundles; my @en_chains = Treex::Tool::Coreference::Utils::get_coreference_entities(\@en_ttrees, {ordered => "topological"}); foreach my $$chain (@en_chains) { foreach my $$tnode (@$$chain) { print $$tnode->id."\t".$$tnode->t_lemma."\n"; } print "\n"; }' \
+		> new.en_cs.id_tlemma.coref_chains.txt
+	cat new.en_cs.id_tlemma.coref_chains.txt | grep -v -P "^\s*$$" | sort > $@
