@@ -32,6 +32,9 @@ tmp/pcedt_treex_unaligned/done : tmp/pcedt_structured/done | orig_data/schema
 		Write::Treex substitute='{$(dir $<)(..)/wsj_(....).*}{$(dir $@)$$1/wsj_$$2.treex.gz}'
 	touch $@
 
+# there are bugs in the original PDT-like documents, which cause problems in the Treex representation
+# they were fixed manually, see BUGS
+
 ########### FIND OUT IF THERE ARE DIFFERENT IDS IN THE OLD AND THE NEW PCEDT ##################
 
 old_new.en.ids.diff :
