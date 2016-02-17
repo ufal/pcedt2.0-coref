@@ -26,7 +26,7 @@ for i in `seq 0 24`; do
             gzip -c > $trg_dir/$trg_file.gz;
         rm $trg_dir/$trg_file;
     done;
-    for j in $src_main_dir/en/$i_str*/*; do
+    for j in $src_main_dir/en/data/$i_str*/*; do
         src_file=`basename $j`;
         src_base=`echo $src_file | sed 's/\..*$//'`;
         trg_file=`echo $src_file | sed 's/\.\(.\)\.gz$/.en.\1.gz/'`;
