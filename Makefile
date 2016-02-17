@@ -17,8 +17,12 @@ tmp/pcedt_structured/done : orig_data
 	bin/structure_pcedt_parts.sh $< $(dir $@)
 	touch $@
 
-tmp/pcedt_treex_unaligned/done : tmp/pcedt_structured/done
+tmp/pcedt_treex_unaligned/done : tmp/pcedt_structured/done | orig_data/schema
 	mkdir -p $(dir $@)
+	treex -p --jobs=200 --workdir='tmp/treex_runs/{NNN}-run.{XXXX}' \
+		Read::PCEDT from='!$(dir $<)*/wsj_*.en.t.gz' schema_dir=$| \
+		Write::Treex substitute='{$(dir $<)(..)/wsj_(....).*}{$(dir $@)$$1/wsj_$$2.treex.gz}'
+	touch $@
 
 ########### FIND OUT IF THERE ARE DIFFERENT IDS IN THE OLD AND THE NEW PCEDT ##################
 
