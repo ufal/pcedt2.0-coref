@@ -34,6 +34,8 @@ for i in `seq 0 24`; do
         echo $j "--->" $trg_dir/$trg_file;
         zcat $j | \
             sed "s/$src_base\.\([aptmw]\)\.gz/$trg_base.en.\1.gz/g" | \
+            sed 's/target-node\.rf/target_node.rf/g' | \
+            sed 's/informal-type/type/g' | \
             gzip -c > $trg_dir/$trg_file;
     done;
 done
