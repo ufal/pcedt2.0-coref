@@ -38,3 +38,9 @@ old_new.en.ids.diff :
 	zcat /net/data/pcedt2.0/data/*/*.treex.gz | grep -P "id=.EnglishT" | grep -v "reffile" | sed 's/^.*"\(.*\)".*$$/\1/' | sort > old.en.ids.txt
 	zcat tmp/pcedt_structured/*/wsj_*.en.t.gz | grep -P "id=.EnglishT" | grep -v "reffile" | sed 's/^.*"\(.*\)".*$$/\1/' | sort > new.en.ids.txt
 	diff old.en.ids.txt new.en.ids.txt > $@
+
+new.en_cs.ids.coref_chains.txt : tmp/pcedt_treex_unaligned/done
+	treex $(LRC_FLAG) \
+		Read::Treex from='!$(dir $<)/*/wsj_*.treex.gz' \
+		Util::Eval doc='use Treex::Tool::Coreference::Utils; my @bundles = $$doc->get_bundles; my @en_ttrees = map {($$_->get_tree("en","t",""), $$_->get_tree("cs","t",""))} @bundles; my @en_chains = Treex::Tool::Coreference::Utils::get_coreference_entities(\@en_ttrees, {ordered => "topological"}); foreach my $$chain (@en_chains) { foreach my $$tnode (@$$chain) { print $$tnode->id."\n"; } print "\n"; }' \
+		> $@
