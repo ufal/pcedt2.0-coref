@@ -1,0 +1,20 @@
+tmp/pcedt_treex_unaligned/15/wsj_1561.treex.gz##14.EnglishT-wsj_1561-s14a5	#PersPron -> #Cor - gram. koref v oboch
+tmp/pcedt_treex_unaligned/07/wsj_0781.treex.gz##45.EnglishT-wsj_0781-s45a2	"486-based" -> "486" + "based"
+tmp/pcedt_treex_unaligned/04/wsj_0437.treex.gz##42.EnglishT-wsj_0437-s42-t41_coract	pridany #Cor odkazujuci na pridany #Ben
+tmp/pcedt_treex_unaligned/00/wsj_0036.treex.gz##41.EnglishT-wsj_0036-s41-t2	"goverment" -> "government"
+tmp/pcedt_treex_unaligned/00/wsj_0041.treex.gz##9.EnglishT-wsj_0041-s9-t30	"virginium" -> "virginia"
+tmp/pcedt_treex_unaligned/15/wsj_1544.treex.gz##1.EnglishT-wsj_1544-s1-t16	"miami-based" -> "miami" + based
+tmp/pcedt_treex_unaligned/01/wsj_0144.treex.gz##1.EnglishT-wsj_0144-s1-t4   "third-quarter" -> "third" + "quarter"
+tmp/pcedt_treex_unaligned/01/wsj_0162.treex.gz##21.EnglishT-wsj_0162-s21-t8	"fourth-quarter" -> "fourth" + "quarter"
+tmp/pcedt_treex_unaligned/05/wsj_0529.treex.gz##7.EnglishT-wsj_0529-s7a2	"calgary-based" -> "calgary" + based
+tmp/pcedt_treex_unaligned/20/wsj_2081.treex.gz##1.EnglishT-wsj_2081-s1-t7	"first-half" -> "first" + "half"
+tmp/pcedt_treex_unaligned/09/wsj_0964.treex.gz##21.EnglishT-wsj_0964-s21a2	#Gen -> #PersPron
+tmp/pcedt_treex_unaligned/10/wsj_1099.treex.gz##64.EnglishT-wsj_1099-s64a6	#Gen -> #PersPron
+tmp/pcedt_treex_unaligned/11/wsj_1109.treex.gz##1.EnglishT-wsj_1109-s1-t4	"third-quarter" -> "third" + "quarter"
+tmp/pcedt_treex_unaligned/02/wsj_0281.treex.gz##5.T-wsj0281-001-p1s4a20	#PersPron -> #Gen; z neho link nevedie ale nanho asi ano
+tmp/pcedt_treex_unaligned/15/wsj_1570.treex.gz##13.T-wsj1570-001-p1s12a12	#Gen -> #PersPron
+tmp/pcedt_treex_unaligned/21/wsj_2106.treex.gz##43.EnglishT-wsj_2106-s43a7	#PersPron -> #Compar; v starom nie je koref
+tmp/pcedt_treex_unaligned/10/wsj_1002.treex.gz##28.T-wsj1002-001-p1s27a15	#Gen -> #PersPron
+tmp/pcedt_treex_unaligned/11/wsj_1165.treex.gz##1.EnglishT-wsj_1165-s1-t5	"third-quarter" -> "third" + "quarter"
+tmp/pcedt_treex_unaligned/10/wsj_1010.treex.gz##5.EnglishT-wsj_1010-s5a5	#PersPron -> #Compar; v starom je koref
+tmp/pcedt_treex_unaligned/15/wsj_1575.treex.gz##1.EnglishT-wsj_1575-s1-t7	"third-quarter" -> "third" + "quarter"
