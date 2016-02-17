@@ -8,7 +8,9 @@ orig_data/schema :
 	cp ${TMT_ROOT}/treex/lib/Treex/Block/Read/PDT_schema/tdata_schema.xml $@
 	cp ${TMT_ROOT}/treex/lib/Treex/Block/Read/PDT_schema/adata_schema.xml $@
 	cp ${TMT_ROOT}/treex/lib/Treex/Block/Read/PDT_schema/pdata_eng_schema.xml $@
-	cp orig_data/en/schema/tdata_eng_schema.xml $@
+	cat orig_data/en/schema/tdata_eng_schema.xml | \
+        sed 's/target-node\.rf/target_node.rf/g' | \
+    	sed 's/informal-type/type/g' > $@/tdata_eng_schema.xml
 	cp orig_data/en/schema/adata_eng_schema.xml $@
 
 tmp/pcedt_structured/done : orig_data
