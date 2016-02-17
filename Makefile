@@ -1,5 +1,16 @@
 SHELL=/bin/bash
 
+orig_data/schema : 
+	mkdir $@
+	cat orig_data/cs/schema/tanot_schema.xml | \
+        sed 's/target-node\.rf/target_node.rf/g' | \
+    	sed 's/informal-type/type/g' > $@/tanot_schema.xml
+	cp ${TMT_ROOT}/treex/lib/Treex/Block/Read/PDT_schema/tdata_schema.xml $@
+	cp ${TMT_ROOT}/treex/lib/Treex/Block/Read/PDT_schema/adata_schema.xml $@
+	cp ${TMT_ROOT}/treex/lib/Treex/Block/Read/PDT_schema/pdata_eng_schema.xml $@
+	cp orig_data/en/schema/tdata_eng_schema.xml $@
+	cp orig_data/en/schema/adata_eng_schema.xml $@
+
 tmp/pcedt_structured/done : orig_data
 	bin/structure_pcedt_parts.sh $< $(dir $@)
 	touch $@
