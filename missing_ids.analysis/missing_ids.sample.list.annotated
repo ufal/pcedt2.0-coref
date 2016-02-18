@@ -4,7 +4,7 @@ tmp/pcedt_treex_unaligned/04/wsj_0437.treex.gz##42.EnglishT-wsj_0437-s42-t41_cor
 tmp/pcedt_treex_unaligned/00/wsj_0036.treex.gz##41.EnglishT-wsj_0036-s41-t2	"goverment" -> "government"
 tmp/pcedt_treex_unaligned/00/wsj_0041.treex.gz##9.EnglishT-wsj_0041-s9-t30	"virginium" -> "virginia"
 tmp/pcedt_treex_unaligned/15/wsj_1544.treex.gz##1.EnglishT-wsj_1544-s1-t16	"miami-based" -> "miami" + based
-tmp/pcedt_treex_unaligned/01/wsj_0144.treex.gz##1.EnglishT-wsj_0144-s1-t4   "third-quarter" -> "third" + "quarter"
+tmp/pcedt_treex_unaligned/01/wsj_0144.treex.gz##1.EnglishT-wsj_0144-s1-t4	"third-quarter" -> "third" + "quarter"
 tmp/pcedt_treex_unaligned/01/wsj_0162.treex.gz##21.EnglishT-wsj_0162-s21-t8	"fourth-quarter" -> "fourth" + "quarter"
 tmp/pcedt_treex_unaligned/05/wsj_0529.treex.gz##7.EnglishT-wsj_0529-s7a2	"calgary-based" -> "calgary" + based
 tmp/pcedt_treex_unaligned/20/wsj_2081.treex.gz##1.EnglishT-wsj_2081-s1-t7	"first-half" -> "first" + "half"
