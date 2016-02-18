@@ -1,8 +1,10 @@
 SHELL=/bin/bash
 
+TREEX=PERL5LIB=${PWD}/lib:${PERL5LIB} treex
 LRC=0
 ifeq ($(LRC), 1)
 LRC_FLAG=-p --jobs=200 --workdir='tmp/treex_runs/{NNN}-run.{XXXX}' --qsub "-v PERL5LIB=${PWD}/lib"
+TREEX=treex $(LRC_FLAG)
 endif
 
 ##################################################################################################################################
@@ -48,8 +50,16 @@ tmp/pcedt_treex_unaligned/done : tmp/pcedt_structured/done | orig_data/schema
 ################################ EXTRACT THE COREF LINKS FROM THE NEW PCEDT IN TREEX FORMAT ######################################
 ##################################################################################################################################
 tmp/coref_links.list : tmp/pcedt_treex_unaligned/done
-	treex $(LRC_FLAG) \
+	$(TREEX) \
 		Read::Treex from='!$(dir $<)*/wsj_*.treex.gz' \
 		PCEDT20Coref::CorefLinksPrinter language=en \
 		PCEDT20Coref::CorefLinksPrinter language=cs \
 	> $@
+
+tmp/old_pcedt_new_coref/done : tmp/coref_links.list | /net/data/pcedt2.0/data
+	mkdir -p $(dir $@)
+	$(TREEX) \
+		Read::Treex from='!$|/*/wsj_*.treex.gz' \
+		PCEDT20Coref::CorefLinksLoader links_file=$< \
+		Write::Treex substitute='{$|/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
+	touch $@
