@@ -2,9 +2,12 @@ SHELL=/bin/bash
 
 LRC=0
 ifeq ($(LRC), 1)
-LRC_FLAG=-p --jobs=50 --workdir='tmp/treex_runs/{NNN}-run.{XXXX}'
+LRC_FLAG=-p --jobs=200 --workdir='tmp/treex_runs/{NNN}-run.{XXXX}' --qsub "-v PERL5LIB=${PWD}/lib"
 endif
 
+##################################################################################################################################
+############################## RETRIEVE THE SCHEMA FILES FOR PDT-LIKE PARTS OF THE NEW PCEDT #####################################
+##################################################################################################################################
 orig_data/schema : 
 	mkdir $@
 	cat orig_data/cs/schema/tanot_schema.xml | \
@@ -20,10 +23,16 @@ orig_data/schema :
     	sed 's/informal-type/type/g' > $@/tdata_eng_schema.xml
 	cp orig_data/en/schema/adata_eng_schema.xml $@
 
+##################################################################################################################################
+##################### CREATE THE PCEDT-LIKE DIRECTORY STRUCTURE AND CHANGE REFERENCES AND SOME MARKUP ############################
+##################################################################################################################################
 tmp/pcedt_structured/done : orig_data
 	bin/structure_pcedt_parts.sh $< $(dir $@)
 	touch $@
 
+##################################################################################################################################
+########## TRANSFORM PDT-LIKE LANGUAGE PARTS TO A SINGLE-FILE TREEX REPRESENTATION - LANGUAGES ARE SENTENCE-ALIGNED ##############
+##################################################################################################################################
 tmp/pcedt_treex_unaligned/done : tmp/pcedt_structured/done | orig_data/schema
 	mkdir -p $(dir $@)
 	mkdir -p tmp/treex_runs
@@ -34,3 +43,10 @@ tmp/pcedt_treex_unaligned/done : tmp/pcedt_structured/done | orig_data/schema
 
 # there are bugs in the original PDT-like documents, which cause problems in the Treex representation
 # they were fixed manually, see BUGS
+
+tmp/coref_links.list : tmp/pcedt_treex_unaligned/done
+	treex $(LRC_FLAG) \
+		Read::Treex from='!$(dir $<)*/wsj_*.treex.gz' \
+		PCEDT20Coref::CorefLinksPrinter language=en \
+		PCEDT20Coref::CorefLinksPrinter language=cs \
+	> $@
