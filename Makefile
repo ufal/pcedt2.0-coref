@@ -56,6 +56,9 @@ tmp/coref_links.list : tmp/pcedt_treex_unaligned/done
 		PCEDT20Coref::CorefLinksPrinter language=cs \
 	> $@
 
+##################################################################################################################################
+################################# LOAD THE COREF LINKS FROM THE NEW PCEDT TO THE OLD PCEDT #######################################
+##################################################################################################################################
 tmp/old_pcedt_new_coref/done : tmp/coref_links.list | /net/data/pcedt2.0/data
 	mkdir -p $(dir $@)
 	$(TREEX) \
