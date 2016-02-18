@@ -44,6 +44,9 @@ tmp/pcedt_treex_unaligned/done : tmp/pcedt_structured/done | orig_data/schema
 # there are bugs in the original PDT-like documents, which cause problems in the Treex representation
 # they were fixed manually, see BUGS
 
+##################################################################################################################################
+################################ EXTRACT THE COREF LINKS FROM THE NEW PCEDT IN TREEX FORMAT ######################################
+##################################################################################################################################
 tmp/coref_links.list : tmp/pcedt_treex_unaligned/done
 	treex $(LRC_FLAG) \
 		Read::Treex from='!$(dir $<)*/wsj_*.treex.gz' \
