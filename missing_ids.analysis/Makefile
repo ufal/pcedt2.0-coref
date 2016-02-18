@@ -2,7 +2,7 @@ SHELL=/bin/bash
 
 LRC=0
 ifeq ($(LRC), 1)
-LRC_FLAG=-p --jobs=50 --workdir='tmp/treex_runs/{NNN}-run.{XXXX}'
+LRC_FLAG=-p --jobs=50 --workdir='../tmp/treex_runs/{NNN}-run.{XXXX}'
 endif
 
 #tmp/pcedt_treex_unaligned/done :
