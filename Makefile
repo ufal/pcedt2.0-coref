@@ -4,7 +4,7 @@ TREEX=PERL5LIB=${PWD}/lib:${PERL5LIB} treex
 LRC=0
 ifeq ($(LRC), 1)
 LRC_FLAG=-p --jobs=200 --workdir='tmp/treex_runs/{NNN}-run.{XXXX}' --qsub "-v PERL5LIB=${PWD}/lib"
-TREEX=treex $(LRC_FLAG)
+TREEX:=$(TREEX) $(LRC_FLAG)
 endif
 
 ##################################################################################################################################
