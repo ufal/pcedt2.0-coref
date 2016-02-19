@@ -1,2 +1,3 @@
 Document	Node_id	Bug description	Bug fixed
 /ha/work/people/mnovak/data/pedt/data/183/wsj_1830.t.gz	EnglishT-wsj_1830-s9-t43	coref_text reference to non-existing id EnglishT-wsj_1830-s9-t3	coref_text element removed from the tmp/pcedt_treex_unaligned//18/wsj_1830.treex.gz
+/ha/work/people/mnovak/data/pedt/data/244/wsj_2444.t.gz	EnglishT-wsj_2444-s19-t18	a.aux reference to non-existing id EnglishA-wsj_2444-s19a2	a.aux element removed from the tmp/pcedt_treex_unaligned//24/wsj_2444.treex.gz
