@@ -8,7 +8,8 @@ extends 'Treex::Core::Block';
 sub print_link { 
     my ($anaph, $ante, $type) = @_;
     print $anaph->get_document->file_stem . "\t";
-    print join "\t", map {$_->id} ($anaph, $ante);
+    print join "\t", map {$_->id} ($anaph, $ante, $anaph->get_parent, $ante->get_parent);
+    print join "\t", map {my $anode = $_->get_lex_anode; defined $anode ? $anode->form : ""} ($anaph, $ante);
     print "\t".$type."\n";
 }
 
