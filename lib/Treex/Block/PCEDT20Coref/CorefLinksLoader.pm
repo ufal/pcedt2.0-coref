@@ -34,69 +34,60 @@ sub _build_coref_links {
 }
 
 sub find_node {
-    my ($doc, $xy_to_anode, $id, $par_id, $tlemma, $functor, $xy) = @_;
+    my ($doc, $id, $tlemma, $functor, $id_path, $form) = @_;
     # find by its id
     my $node;
     if ($doc->id_is_indexed($id)) {
         $node = $doc->get_node_by_id($id);
         return $node if (defined $node);
     }
+    my @ancestor_ids = split / /, $id_path;
+    my $ance_id = shift @ancestor_ids;
+    while (defined $ance_id && !$doc->id_is_indexed($ance_id)) {
+        $ance_id = shift @ancestor_ids;
+    }
+    if (!defined $ance_id) {
+        log_warn "No ancestor id has been found in the old PCEDT.";
+        return;
+    }
+    my $ance_node = $doc->get_node_by_id($ance_id);
     # find a changed generated node, e.g., #Gen -> #PersPron, #PersPron -> #Compar and #PersPron -> #Cor
     if ($tlemma =~ /^#/) {
-        my $par_node = $doc->get_node_by_id($par_id);
-        my @descs = $par_node->get_descendants;
+        my @descs = $ance_node->get_descendants;
         ($node) = grep {$_->t_lemma =~ /^#/ && $_->functor eq $functor} @descs;
-        if (defined $node) {
-            return $node;
-        }
-        else {
-            log_warn "No node found for a generated node $id";
-        }
+        log_warn "No node found for a generated node $id" if (!defined $node);
     }
     # find a changed surface node
     # e.g., the hyphen-compounds: 'third-quartal', 'Miami-based', etc.  -> in the old PCEDT they are represented as a single node, in the new one as three anodes (two tnodes)
-    else {
-        my $lang = 'cs';
-        if ($id =~ /English/) {
-            $lang = 'en';
+    elsif ($form) {
+        my @children = $ance_node->get_children;
+        my @surface_children = grep {defined $_->get_lex_anode} @children;
+        my @cands = grep {my $child_form = $_->get_lex_anode->form; $child_form =~ /$form/ || $form =~ /$child_form/} @surface_children;
+        if (@cands == 1) {
+            ($node) = @cands;
         }
-        my $anode = $xy_to_anode->{$lang}{$xy};
-        if (!defined $anode) {
-            print STDERR "LANG: $lang, XY: $xy\n";
-        }
-        ($node) = $anode->get_referencing_nodes('a/lex.rf');
-        if (defined $node) {
-            return $node;
+        elsif (@cands == 0) {
+            log_warn "No candidate found for $id.";
         }
         else {
-            log_warn "No node found for a surface node $id";
+            log_warn "More than one candidate for $id: " . join ", ", map {$_->get_lex_anode->form} @cands;
         }
     }
+    else {
+        log_warn "No node found for a surface node $id";
+    }
+    print STDERR "Node found ( old_tlemma: $tlemma, new_tlemma: ". $node->t_lemma . ")\n" if (defined $node);
+    return $node;
 }
 
 sub process_document {
     my ($self, $doc) = @_;
 
-    my %xy_to_id = ();
-    my @bundles = $doc->get_bundles();
-    for (my $x = 0; $x < @bundles; $x++) {
-        foreach my $zone ($bundles[$x]->get_all_zones()) {
-            if (($zone->selector // '') eq ($self->selector // '')) {
-                my @anodes = grep {defined $_->afun} $zone->get_atree->get_descendants({ordered => 1});
-                my $y = 0;
-                foreach my $anode (@anodes) {
-                    #print STDERR "ANODE: " . $anode->id . ", $x:$y\n";
-                    $xy_to_id{$anode->language}{"$x:$y"} = $anode;
-                    $y += length($anode->form);
-                }
-            }
-        }
-    }
     foreach my $tuple (@{$self->_coref_links->{$doc->file_stem}}) {
         my ($anaph_feats, $ante_feats, $type) = @$tuple;
-        my $anaph = find_node($doc, \%xy_to_id, @$anaph_feats);
+        my $anaph = find_node($doc, @$anaph_feats);
         next if (!defined $anaph);
-        my $ante = find_node($doc, \%xy_to_id, @$ante_feats);
+        my $ante = find_node($doc, @$ante_feats);
         next if (!defined $ante);
         if ($anaph->t_lemma eq "#Gen") {
             log_info "A link that would originate from a #Gen node found.";
