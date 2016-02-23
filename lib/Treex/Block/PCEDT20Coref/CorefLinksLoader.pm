@@ -60,7 +60,7 @@ sub find_node {
     # find a changed surface node
     # e.g., the hyphen-compounds: 'third-quartal', 'Miami-based', etc.  -> in the old PCEDT they are represented as a single node, in the new one as three anodes (two tnodes)
     elsif ($form) {
-        my @children = $ance_node->get_children;
+        my @children = $ance_node->get_children({add_self => 1});
         my @surface_children = grep {defined $_->get_lex_anode} @children;
         my @cands = grep {my $child_form = $_->get_lex_anode->form; $child_form =~ /$form/ || $form =~ /$child_form/} @surface_children;
         if (@cands == 1) {
