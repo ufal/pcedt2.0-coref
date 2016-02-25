@@ -66,3 +66,12 @@ tmp/old_pcedt_new_coref/done : tmp/coref_links.list | /net/data/pcedt2.0/data
 		PCEDT20Coref::CorefLinksLoader links_file=$< \
 		Write::Treex substitute='{$|/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
 	touch $@
+
+tmp/old_pcedt_sup_ali/done : tmp/old_pcedt_new_coref/done
+	mkdir -p $(dir $@)
+	$(TREEX) \
+		Read::Treex from='!$(dir $<)/*/wsj_*.treex.gz' \
+		Align::T::Supervised::Resolver language=en,cs align_trg_lang=cs delete_orig_align=0 \
+			model_path=data/models/align/supervised/en_cs.all_anaph.train.ref.model,data/models/align/supervised/cs_en.all_anaph.train.ref.model \
+		Write::Treex substitute='{$(dir $<)/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
+	touch $@
