@@ -67,11 +67,25 @@ tmp/old_pcedt_new_coref/done : tmp/coref_links.list | /net/data/pcedt2.0/data
 		Write::Treex substitute='{$|/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
 	touch $@
 
-tmp/old_pcedt_sup_ali/done : tmp/old_pcedt_new_coref/done
+##################################################################################################################################
+########################### EXTRACT THE GOLD ALIGNMENT LINKS FOR COREFERENTIAL EXPRESSIONS  ######################################
+##################################################################################################################################
+ALIGN_COREF_DIR=/home/mnovak/projects/align_coref
+
+tmp/gold_align_coref_links.list : $(ALIGN_COREF_DIR)/data/gold_aligned.mgiza_on_czeng/full.list
+	$(TREEX) -Sref \
+		Read::Treex from=@$< \
+		PCEDT20Coref::AlignLinksPrinter align_langs=en,cs > $@
+
+##################################################################################################################################
+#################### REPLACE THE ORIGINAL ALIGNMENT WITH THE GOLD AND SUPERVISED ONE ON ANAPHORIC EXPRESSIONS ####################
+##################################################################################################################################
+tmp/old_pcedt_sup_ali/done : tmp/old_pcedt_new_coref/done tmp/gold_align_coref_links.list
 	mkdir -p $(dir $@)
 	$(TREEX) \
-		Read::Treex from='!$(dir $<)/*/wsj_*.treex.gz' \
-		Align::T::Supervised::Resolver language=en,cs align_trg_lang=cs delete_orig_align=0 \
+		Read::Treex from='!$(dir $(word 1,$^))/*/wsj_*.treex.gz' \
+		PCEDT20Coref::AlignLinksLoader align_dir=en_cs align_name=coref_gold links_file=$(word 2,$^) \
+		Align::T::Supervised::Resolver language=en,cs align_trg_lang=cs align_name=coref_supervised delete_orig_align=1 skip_annotated=1 \
 			model_path=data/models/align/supervised/en_cs.all_anaph.train.ref.model,data/models/align/supervised/cs_en.all_anaph.train.ref.model \
-		Write::Treex substitute='{$(dir $<)/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
+		Write::Treex substitute='{$(dir $(word 1,$^))/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
 	touch $@
