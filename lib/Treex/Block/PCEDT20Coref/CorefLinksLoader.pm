@@ -93,7 +93,11 @@ sub process_document {
             log_info "A link that would originate from a #Gen node found.";
             #next;
         }
-        if ($type eq "text") {
+        
+        if ($type =~ /^bridging:(.*)$/) {
+            $anaph->add_bridging_node($ante, $1);
+        }
+        elsif ($type eq "coref_text") {
             $anaph->add_coref_text_nodes($ante);
         }
         else {

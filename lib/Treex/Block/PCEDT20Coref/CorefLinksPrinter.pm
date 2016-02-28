@@ -33,9 +33,11 @@ sub print_link {
 sub process_tnode {
     my ($self, $tnode) = @_;
     my @text = $tnode->get_coref_text_nodes;
-    $self->print_link($tnode, $_, "text") foreach (@text);
+    $self->print_link($tnode, $_, "coref_text") foreach (@text);
     my @gram = $tnode->get_coref_gram_nodes;
-    $self->print_link($tnode, $_, "gram") foreach (@gram);
+    $self->print_link($tnode, $_, "coref_gram") foreach (@gram);
+    my ($bridg_nodes, $bridg_types) = $tnode->get_bridging_nodes;
+    $self->print_link($tnode, $bridg_nodes->[$_], "bridging:".$bridg_types->[$_]) foreach (0 .. $#$bridg_nodes);
 }
 
 1;
