@@ -63,6 +63,7 @@ tmp/old_pcedt_new_coref/done : tmp/coref_links.list | /net/data/pcedt2.0/data
 	mkdir -p $(dir $@)
 	$(TREEX) \
 		Read::Treex from='!$|/*/wsj_*.treex.gz' \
+		Coref::RemoveLinks type=all \
 		PCEDT20Coref::CorefLinksLoader links_file=$< \
 		Write::Treex substitute='{$|/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
 	touch $@
