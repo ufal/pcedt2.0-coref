@@ -89,3 +89,14 @@ tmp/old_pcedt_sup_ali/done : tmp/old_pcedt_new_coref/done tmp/gold_align_coref_l
 			model_path=data/models/align/supervised/en_cs.all_anaph.train.ref.model,data/models/align/supervised/cs_en.all_anaph.train.ref.model \
 		Write::Treex substitute='{$(dir $(word 1,$^))/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
 	touch $@
+
+##################################################################################################################################
+######################################### FINALIZE THE DATA (remove wild attributes) #############################################
+##################################################################################################################################
+final_data/done : tmp/old_pcedt_sup_ali/done
+	mkdir -p $(dir $@)
+	$(TREEX) \
+		Read::Treex from='!$(dir $<)/*/wsj_*.treex.gz' \
+		Util::Eval tnode='$$tnode->set_wild();' \
+		Write::Treex substitute='{$(dir $<)/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
+	touch $@
