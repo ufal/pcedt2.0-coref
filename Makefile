@@ -94,7 +94,7 @@ tmp/old_pcedt_sup_ali/done : tmp/old_pcedt_new_coref/done tmp/gold_align_coref_l
 ##################################################################################################################################
 ######################################### FINALIZE THE DATA (remove wild attributes) #############################################
 ##################################################################################################################################
-final_data/done : tmp/old_pcedt_sup_ali/done
+release/data/done : tmp/old_pcedt_sup_ali/done
 	mkdir -p $(dir $@)
 	$(TREEX) \
 		Read::Treex from='!$(dir $<)/*/wsj_*.treex.gz' \
