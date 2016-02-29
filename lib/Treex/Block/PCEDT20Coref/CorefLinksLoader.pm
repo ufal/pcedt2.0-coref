@@ -76,7 +76,7 @@ sub find_node {
     else {
         log_warn "No node found for a surface node $id";
     }
-    print STDERR "Node found ( old_tlemma: $tlemma, new_tlemma: ". $node->t_lemma . ")\n" if (defined $node);
+    print STDERR "Node " . $node->id . " found ( old_tlemma: $tlemma, new_tlemma: ". $node->t_lemma . ")\n" if (defined $node);
     return $node;
 }
 
