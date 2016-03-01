@@ -39,6 +39,19 @@ in Czech (zero anaphora).
 The release of PCEDT 2.0 Coref (Nedoluzhko et al., 2016) builds upon the original release of PCEDT 2.0 and extends
 it with further types of coreference relations and related phenomena.
 
+The set of coreferential relations with a specific referent is completed here by introducing annotation of nominal
+textual coreference, i.e. coreference links with a nominal group as referring expression.
+
+Bridging relations are not included in PCEDT 2.0, except for a special case of split antecedents. This is the case
+when the expression is coreferential with the union of antecedents A+B, both present in tectogrammatical structure
+of the corresponding text.
+
+The whole manual coreference annotation introduced in PCEDT 2.0 Coref, has been in fact performed hand in hand
+with other annotation work and structural changes, which are planned to be released in PCEDT 3.0. For this project
+of PCEDT 2.0 Coref, we extracted the coreferential relations from the new annotations and tried importing it
+to the original release of PCEDT 2.0. By all the 259,248 imported coreferential or bridging links always connecting
+two nodes, 364,807 nodes are covered. 329 imported, 283 non-imported
+
 
 
 TODO: continue writing
