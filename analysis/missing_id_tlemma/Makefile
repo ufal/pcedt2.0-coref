@@ -31,17 +31,17 @@ new.en_cs.id_tlemma.coref.txt : ../tmp/pcedt_treex_unaligned/done
 		> new.en_cs.id_tlemma.coref_chains.txt
 	cat new.en_cs.id_tlemma.coref_chains.txt | grep -v -P "^\s*$$" | sort > $@
 
-#---------- get coref ids from the new PCEDT not present in the old PCEDT -------------#
+#---------- get coref id-tlemma pairs from the new PCEDT not present in the old PCEDT -------------#
 old_new.en_cs.id_tlemma.coref.diff : new.en_cs.id_tlemma.coref.txt old.en_cs.id_tlemma.all.txt
 	diff $^ | grep "^<" > $@
 
-#---------- build a list of addresses to coref ids missing in the old PCEDT ------------#
-missing_ids.sample.list : old_new.en_cs.id_tlemma.coref.diff
+#---------- build a list of addresses to coref id-tlemma pairs missing in the old PCEDT ------------#
+missing_id_tlemma.sample.list : old_new.en_cs.id_tlemma.coref.diff
 	cat $< | cut -f 1 | cut -c1,2 --complement | \
 		sed 's/^\(.*\(wsj_\(..\)..\)-s\([0-9]\+\).*\)$$/..\/tmp\/pcedt_treex_unaligned\/\3\/\2.treex.gz##\4.\1/' | \
 		perl -ne '$$_ =~ s|^(T-wsj(..)(..).*s([0-9]+).*)$$|../tmp/pcedt_treex_unaligned/$$2/wsj_$$2$$3.treex.gz##XXX.$$1|; my $$s = $$4 + 1; $$_ =~ s/XXX/$$s/; print $$_;' | \
 		shuffle -r 1986 | head -n 20  > $@
 
 #---------- build a list of old PCEDT bundles to the new missing IDS ------------------#
-old_trees.missing_ids.sample.list : missing_ids.sample.list
+old_trees.missing_id_tlemma.sample.list : missing_ids.sample.list
 	cat $< | sed 's/##\(.*\)\..*$$/##\1/' | sed 's|\.\./tmp/pcedt_treex_unaligned|/net/data/pcedt2.0/data|' > $@

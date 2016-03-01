@@ -3,5 +3,5 @@
 /old.en_cs.id_tlemma.all.unsorted.txt
 /old.en_cs.id_tlemma.all.txt
 /old_new.en_cs.id_tlemma.coref.diff
-/missing_ids.sample.list
-/old_trees.missing_ids.sample.list
+/missing_id_tlemma.sample.list
+/old_trees.missing_id_tlemma.sample.list
