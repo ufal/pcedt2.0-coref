@@ -46,12 +46,13 @@ Bridging relations are not included in PCEDT 2.0, except for a special case of s
 when the expression is coreferential with the union of antecedents A+B, both present in tectogrammatical structure
 of the corresponding text.
 
-The whole manual coreference annotation introduced in PCEDT 2.0 Coref, has been in fact performed hand in hand
-with other annotation work and structural changes, which are planned to be released in PCEDT 3.0. For this project
-of PCEDT 2.0 Coref, we extracted the coreferential relations from the new annotations and tried importing it
-to the original release of PCEDT 2.0. By all the 259,248 imported coreferential or bridging links always connecting
-two nodes, 364,807 nodes are covered. 329 imported, 283 non-imported
-
-
+The abovementioned new annotation has been in fact conducted hand in hand with another annotation work.
+All the new annotation, including what will result from the ongoing annotation process, is planned to be soon 
+released in PCEDT 3.0. As in PCEDT 2.0 Coref we wanted to release only the coreferential extensions,
+we decided to extract all the coreferential relations from the newly annotated data and import it back
+to the original version of PCEDT 2.0. 
 
 TODO: continue writing
+
+By all the 259,248 imported coreferential or bridging links always connecting
+two nodes, 364,807 nodes are covered. 329 imported, 283 non-imported
