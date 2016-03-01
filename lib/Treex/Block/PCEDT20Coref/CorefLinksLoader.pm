@@ -35,10 +35,14 @@ sub _build_coref_links {
 
 sub find_node {
     my ($doc, $id, $tlemma, $functor, $id_path, $form) = @_;
+    
     # find by its id
     my $node;
     if ($doc->id_is_indexed($id)) {
         $node = $doc->get_node_by_id($id);
+        if ($tlemma ne $node->t_lemma) {
+            print STDERR "Node $id found with different tlemma ( old_tlemma: $tlemma, new_tlemma: ". $node->t_lemma . ")\n";
+        }
         return $node if (defined $node);
     }
     my @ancestor_ids = split / /, $id_path;
@@ -47,7 +51,7 @@ sub find_node {
         $ance_id = shift @ancestor_ids;
     }
     if (!defined $ance_id) {
-        log_warn "No ancestor id has been found in the old PCEDT.";
+        log_warn "No ancestor id for $id has been found in the old PCEDT.";
         return;
     }
     my $ance_node = $doc->get_node_by_id($ance_id);
@@ -76,7 +80,7 @@ sub find_node {
     else {
         log_warn "No node found for a surface node $id";
     }
-    print STDERR "Node " . $node->id . " found ( old_tlemma: $tlemma, new_tlemma: ". $node->t_lemma . ")\n" if (defined $node);
+    print STDERR "Node " . $node->id . " found instead of $id ( old_tlemma: $tlemma, new_tlemma: ". $node->t_lemma . ")\n" if (defined $node);
     return $node;
 }
 
