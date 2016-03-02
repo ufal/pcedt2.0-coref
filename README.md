@@ -47,12 +47,20 @@ when the expression is coreferential with the union of antecedents A+B, both pre
 of the corresponding text.
 
 The abovementioned new annotation has been in fact conducted hand in hand with another annotation work.
-All the new annotation, including what will result from the ongoing annotation process, is planned to be soon 
-released in PCEDT 3.0. As in PCEDT 2.0 Coref we wanted to release only the coreferential extensions,
+All the new annotation, including the annotation work in progress, is planned to be soon 
+released in PCEDT 3.0. As in PCEDT 2.0 Coref we aimed to release only the coreferential extensions,
 we decided to extract all the coreferential relations from the newly annotated data and import it back
-to the original version of PCEDT 2.0. 
+to the original version of PCEDT 2.0. Technically, since every node is specified its ID, it should be easy
+to import the links by remembering the IDs of the two nodes forming a link. However, due to changes in the other
+annotation in PCEDT, some of the nodes in the new version of PCEDT might not exist in the old version.
+Therefore, we had to adopt a heuristics based on the node's ancestors in the tree and its semantic role
+to find a finest replacement for the missing node. Still, the structural changes might be too extensive.
+In that case, our heuristics fails and the coreferential link remains unimported. The following table
+reveals that it concerns only 0.07% of cases. In PCEDT 3.0, all the unimported links will be present.
 
-TODO: continue writing
+| Links to be import | 259,248 |
+| Covered nodes      | 364,807 |
+| Missing ID         |     612 |
+| Heuristics failed  |     283 |
 
-By all the 259,248 imported coreferential or bridging links always connecting
-two nodes, 364,807 nodes are covered. 329 imported, 283 non-imported
+TODO: write about the difference in tlemma
