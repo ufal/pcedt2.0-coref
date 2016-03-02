@@ -58,6 +58,9 @@ to find a finest replacement for the missing node. Still, the structural changes
 In that case, our heuristics fails and the coreferential link remains unimported. The following table
 reveals that it concerns only 0.07% of cases. In PCEDT 3.0, all the unimported links will be present.
 
+
+|                    | Count   |
+|:-------------------|--------:|
 | Links to be import | 259,248 |
 | Covered nodes      | 364,807 |
 | Missing ID         |     612 |
