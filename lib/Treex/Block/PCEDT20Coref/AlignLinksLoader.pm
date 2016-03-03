@@ -14,6 +14,7 @@ extends 'Treex::Core::Block';
 has 'links_file' => (is => 'ro', isa => 'Str', required => 1);
 has 'align_dir' => (is => 'ro', isa => 'LangArrayRef', coerce => 1, required => 1);
 has 'align_name' => (is => 'ro', isa => 'Str', required => 1);
+has 'delete_orig_align' => (is => 'ro', isa => 'Bool', default => 0);
 has '_align_links' => ( is => 'ro', isa => 'HashRef', lazy => 1, builder => '_build_align_links' );
 
 sub BUILD {
@@ -55,7 +56,9 @@ sub process_document {
     my $align_coref_nodes = $self->_align_links->{align_coref_nodes}{$doc->file_stem};
     foreach my $id (keys %$align_coref_nodes) {
         my $node = $doc->get_node_by_id($id);
-        $node->delete_aligned_nodes_by_filter({language => $self->_get_aligned_lang($node), selector => $node->selector});
+        if ($self->delete_orig_align) {
+            $node->delete_aligned_nodes_by_filter({language => $self->_get_aligned_lang($node), selector => $node->selector});
+        }
         $node->set_attr('is_align_coref', 1);
     }
 

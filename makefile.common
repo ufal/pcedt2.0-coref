@@ -1,0 +1,6 @@
+TREEX=PERL5LIB=${BASE_DIR}/lib:${PERL5LIB} treex
+LRC=0
+ifeq ($(LRC), 1)
+LRC_FLAG=-p --jobs=100 --workdir='${BASE_DIR}/tmp/treex_runs/{NNN}-run.{XXXX}' --qsub "-v PERL5LIB=${BASE_DIR}/lib"
+TREEX:=$(TREEX) $(LRC_FLAG)
+endif

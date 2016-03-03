@@ -1,11 +1,7 @@
 SHELL=/bin/bash
 
-TREEX=PERL5LIB=${PWD}/lib:${PERL5LIB} treex
-LRC=0
-ifeq ($(LRC), 1)
-LRC_FLAG=-p --jobs=100 --workdir='tmp/treex_runs/{NNN}-run.{XXXX}' --qsub "-v PERL5LIB=${PWD}/lib"
-TREEX:=$(TREEX) $(LRC_FLAG)
-endif
+BASE_DIR:=$(PWD)
+include makefile.common
 
 ##################################################################################################################################
 ############################## RETRIEVE THE SCHEMA FILES FOR PDT-LIKE PARTS OF THE NEW PCEDT #####################################
@@ -85,7 +81,7 @@ tmp/old_pcedt_sup_ali/done : tmp/old_pcedt_new_coref/done tmp/gold_align_coref_l
 	mkdir -p $(dir $@)
 	$(TREEX) \
 		Read::Treex from='!$(dir $(word 1,$^))/*/wsj_*.treex.gz' \
-		PCEDT20Coref::AlignLinksLoader align_dir=en_cs align_name=coref_gold links_file=$(word 2,$^) \
+		PCEDT20Coref::AlignLinksLoader align_dir=en_cs align_name=coref_gold links_file=$(word 2,$^) delete_orig_align=1 \
 		Align::T::Supervised::Resolver language=en,cs align_trg_lang=cs align_name=coref_supervised delete_orig_align=1 skip_annotated=1 \
 			model_path=data/models/align/supervised/en_cs.all_anaph.train.ref.model,data/models/align/supervised/cs_en.all_anaph.train.ref.model \
 		Write::Treex substitute='{$(dir $(word 1,$^))/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
