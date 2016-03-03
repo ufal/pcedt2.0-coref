@@ -91,6 +91,12 @@ sub process_document {
         my ($anaph_feats, $ante_feats, $type) = @$tuple;
         my $anaph = find_node($doc, @$anaph_feats);
         next if (!defined $anaph);
+
+        if ($type =~ /^coref_special:(.*)$/) {
+            $anaph->set_attr('coref_special', $1);
+            next;
+        }
+
         my $ante = find_node($doc, @$ante_feats);
         next if (!defined $ante);
         if ($anaph->t_lemma eq "#Gen") {
