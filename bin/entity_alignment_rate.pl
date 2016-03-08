@@ -32,15 +32,20 @@ while (my $line = <STDIN>) {
     $entity_aligns{$tnode_entity}{0}++ if (!@ali_entities);
 }
 
-#use Data::Dumper;
+use Data::Dumper;
 #print STDERR Dumper(\%entity_aligns);
 
+my %aligned_entities_number_freq;
 my $entity_rate_sum = 0;
 foreach my $entity_id (sort keys %entity_aligns) {
     my $sum = sum values %{$entity_aligns{$entity_id}};
     my %no_zero = map {$_ => $entity_aligns{$entity_id}{$_}} grep {$_} keys %{$entity_aligns{$entity_id}};
     my $max = max(values %no_zero) // 0;
     $entity_rate_sum += ($max / $sum);
+    $aligned_entities_number_freq{scalar(keys %no_zero)}++;
+
     #print STDERR "$entity_id => $entity_rate_sum ( $max / $sum )\n";
 }
+print "# ENTITIES: " . scalar(keys %entity_aligns) . "\n";
 print "ENTITY ALIGN RATE: " . ($entity_rate_sum / scalar(keys %entity_aligns)) . "\n";
+print "ALIGNED ENTITIES NUMBER DISTRIBUTION: " . Dumper(\%aligned_entities_number_freq) . "\n";
