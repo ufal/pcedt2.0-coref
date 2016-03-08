@@ -22,6 +22,8 @@ pcedt20_coref.stats : $(BASE_DIR)/tmp/analysis/old_pcedt_sup_ali_added/done
 		PCEDT20Coref::AlignCorefStats > \
 	$@
 
+.SECONDARY : full.en.aligncoref.stats full.cs.aligncoref.stats all.en.aligncoref.stats all.cs.aligncoref.stats full.en.allcoref.stats full.cs.allcoref.stats all.en.allcoref.stats all.cs.allcoref.stats
+
 aligncoref.stats : pcedt20_coref.stats
 	cat $< | grep "IS_ALIGN_COREF=1" > $@
 allcoref.stats : pcedt20_coref.stats
