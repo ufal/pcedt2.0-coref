@@ -22,28 +22,41 @@ pcedt20_coref.stats : $(BASE_DIR)/tmp/analysis/old_pcedt_sup_ali_added/done
 		PCEDT20Coref::AlignCorefStats > \
 	$@
 
-all.align_coref.stats : pcedt20_coref.stats
+aligncoref.stats : pcedt20_coref.stats
 	cat $< | grep "IS_ALIGN_COREF=1" > $@
-eval.align_coref.stats : all.align_coref.stats
-	cat $< | grep "wsj_\?194[56789]" > $@
-full.align_coref.stats : all.align_coref.stats
-	cat $< | grep "wsj_\?19[01234]" > $@
+allcoref.stats : pcedt20_coref.stats
+	cp $< $@
 
 en.% : %
 	cat $< | grep "^English" > $@
 cs.% : %
 	cat $< | grep -v "^English" > $@
 
+all.% : %
+	cp $< $@
+eval.% : %
+	cat $< | grep "wsj_\?194[56789]" > $@
+full.% : %
+	cat $< | grep "wsj_\?19[01234]" > $@
+
 DATA_SET=eval
 #DATA_SET=all
 LANGUAGE=en
 #LANGUAGE=cs
+ALIGN_COREF=1
+COREF_TYPES_NAME=aligncoref
+ifeq ($(ALIGN_COREF),0)
+COREF_TYPES_NAME=allcoref
+endif
 
-$(LANGUAGE)_$(DATA_SET)_all_count : $(LANGUAGE).$(DATA_SET).align_coref.stats
+count : $(DATA_SET).$(LANGUAGE).$(COREF_TYPES_NAME).stats
 	cat $< | wc -l 
 
-$(LANGUAGE)_$(DATA_SET)_sup_aligned_anaph_count : PATTERN=coref_supervised
-$(LANGUAGE)_$(DATA_SET)_unsup_aligned_anaph_count : PATTERN=(int|gdfa|rule)
-$(LANGUAGE)_$(DATA_SET)_gold_aligned_anaph_count : PATTERN=coref_gold
-$(LANGUAGE)_$(DATA_SET)_sup_aligned_anaph_count $(LANGUAGE)_$(DATA_SET)_unsup_aligned_anaph_count $(LANGUAGE)_$(DATA_SET)_gold_aligned_anaph_count : $(LANGUAGE).$(DATA_SET).align_coref.stats
+sup_aligned_anaph_count : PATTERN=coref_supervised
+unsup_aligned_anaph_count : PATTERN=(int|gdfa|rule)
+gold_aligned_anaph_count : PATTERN=coref_gold
+sup_aligned_anaph_count unsup_aligned_anaph_count gold_aligned_anaph_count : $(DATA_SET).$(LANGUAGE).aligncoref.stats
 	cat $< | grep -P "COREF\S*$(PATTERN)" | wc -l
+
+%_entity_align_rate : $(DATA_SET).$(LANGUAGE).allcoref.stats
+	cat $< | $(BASE_DIR)/bin/entity_alignment_rate.pl $*
