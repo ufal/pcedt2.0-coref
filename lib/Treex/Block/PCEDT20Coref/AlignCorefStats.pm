@@ -31,7 +31,7 @@ before 'process_document' => sub {
 };
 
 sub coref_types {
-    my ($tnode) = @_;
+    my ($self, $tnode) = @_;
     my @types = ();
     my @antes = ();
     if (@antes = $tnode->get_coref_text_nodes) {
@@ -43,6 +43,9 @@ sub coref_types {
     if ($tnode->get_attr('coref_special')) {
         push @types, "COREF_SPECIAL";
     }
+    if (!@types && defined $self->_id_to_entity->{$tnode->language}{$tnode->id}) {
+        push @types, "FIRST_MENTION";
+    }
     if (!@types) {
         push @types, "OTHER";
     }
@@ -52,7 +55,7 @@ sub coref_types {
 sub process_tnode {
     my ($self, $tnode) = @_;
 
-    my ($types, $antes) = coref_types($tnode);
+    my ($types, $antes) = $self->coref_types($tnode);
     $types = "TNODE=" . $types;
     return if ($types eq "TNODE=OTHER");
 
@@ -65,7 +68,7 @@ sub process_tnode {
     my @ante_ali_info = ();
     my @ali_entities = ();
     for (my $i = 0; $i < @$ali_tnodes; $i++) {
-        my ($ali_tnode_types, $ali_tnode_antes) = coref_types($ali_tnodes->[$i]);
+        my ($ali_tnode_types, $ali_tnode_antes) = $self->coref_types($ali_tnodes->[$i]);
         push @ali_info, "ALI_TNODE=".$ali_tnode_types.":".$ali_types->[$i];
         foreach my $l1_ante (@$antes) {
             foreach my $l2_ante (@$ali_tnode_antes) {
