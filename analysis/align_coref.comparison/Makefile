@@ -52,13 +52,27 @@ COREF_TYPES_NAME=allcoref
 endif
 
 count : $(DATA_SET).$(LANGUAGE).$(COREF_TYPES_NAME).stats
-	cat $< | wc -l 
+	cat $< | wc -l
+
+coref_nodes_distr : $(DATA_SET).$(LANGUAGE).$(COREF_TYPES_NAME).stats
+	cat $< | ./merge_node_categories.pl | cut -f2 | distr
+
+entity_count : $(DATA_SET).$(LANGUAGE).$(COREF_TYPES_NAME).stats
+	cat $< | cut -f1,4 | \
+	perl -ne 'my @cols = split /\s+/, $$_; if ($$cols[1] !~ /TNODE_ENTITY=0/) {$$cols[0] =~ s/^.*wsj_?(....).*$$/$$1/;} else {$$cols[0] =~ s/^.*wsj_?//;} print $$cols[0]." ".$$cols[1]."\n";' | \
+	sort | uniq -c | wc -l
+entity_no_singletons_count : $(DATA_SET).$(LANGUAGE).$(COREF_TYPES_NAME).stats
+	cat $< | cut -f1,4 | \
+	perl -ne 'my @cols = split /\s+/, $$_; if ($$cols[1] !~ /TNODE_ENTITY=0/) {$$cols[0] =~ s/^.*wsj_?(....).*$$/$$1/;} else {$$cols[0] =~ s/^.*wsj_?//;} print $$cols[0]." ".$$cols[1]."\n";' | \
+	sort | uniq -c | grep -v -P "^\s*1\s+" | wc -l
 
 sup_aligned_anaph_count : PATTERN=coref_supervised
 unsup_aligned_anaph_count : PATTERN=(int|gdfa|rule)
 gold_aligned_anaph_count : PATTERN=coref_gold
 sup_aligned_anaph_count unsup_aligned_anaph_count gold_aligned_anaph_count : $(DATA_SET).$(LANGUAGE).aligncoref.stats
-	cat $< | grep -P "COREF\S*$(PATTERN)" | wc -l
+	a=`cat $< | grep -P "COREF\S*$(PATTERN)" | wc -l`; \
+	b=`cat $< | wc -l`; \
+	perl -e 'printf "%.1f\n", $$ARGV[0] / $$ARGV[1] * 100' $$a $$b
 
 %_entity_align_rate : $(DATA_SET).$(LANGUAGE).allcoref.stats
 	cat $< | $(BASE_DIR)/bin/entity_alignment_rate.pl $*

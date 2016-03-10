@@ -15,7 +15,7 @@ while (my $line = <STDIN>) {
     $line =~ /TNODE_ENTITY=(\d+)/;
     next if (!$1);
     my $tnode_entity = $docid."_".$1;
-    #print STDERR "TNODE_ENTITY: $tnode_entity\n";
+    #print "TNODE_ENTITY: $tnode_entity\n";
     my @ali_entities = ();
     foreach my $col (@cols) {
         my ($ali_entity, $type) = ($col =~ /^ALI_ENTITY=(\d+):(\S+)/);
@@ -48,4 +48,8 @@ foreach my $entity_id (sort keys %entity_aligns) {
 }
 print "# ENTITIES: " . scalar(keys %entity_aligns) . "\n";
 print "ENTITY ALIGN RATE: " . ($entity_rate_sum / scalar(keys %entity_aligns)) . "\n";
-print "ALIGNED ENTITIES NUMBER DISTRIBUTION: " . Dumper(\%aligned_entities_number_freq) . "\n";
+my $value1 = $aligned_entities_number_freq{1} / scalar(keys %entity_aligns) * 100; 
+printf "SINGLE ENTITY COUNTERPARTS: %.1f\n", $value1;
+my $value2 = $aligned_entities_number_freq{0} / scalar(keys %entity_aligns) * 100;
+printf "NO ENTITY COUNTERPARTS: %.1f\n", $value2;
+printf "MULTIPLE ENTITY COUNTERPARTS: %.1f\n", 100 - $value1 - $value2;
