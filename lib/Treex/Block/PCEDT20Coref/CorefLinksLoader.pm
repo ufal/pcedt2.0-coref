@@ -99,6 +99,7 @@ sub process_document {
 
         my $ante = find_node($doc, @$ante_feats);
         next if (!defined $ante);
+        next if ($ante == $anaph);
         if ($anaph->t_lemma eq "#Gen") {
             log_info "A link that would originate from a #Gen node found.";
             #next;
