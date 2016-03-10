@@ -35,16 +35,54 @@ sub coref_types {
     my @types = ();
     my @antes = ();
     if (@antes = $tnode->get_coref_text_nodes) {
-        push @types, "COREF_TEXT";
+        if (@antes > 1) {
+            push @types, "SPLIT_TEXT_ANAPH";
+        }
+        else {
+            if ($tnode->t_lemma =~ /^#/) {
+                push @types, "COREF_TEXT_PRON";
+            }
+            else {
+                my $anode = $tnode->get_lex_anode;
+                # Czech
+                if ($anode->language eq "cs") {
+                    if ($anode->tag =~ /^P/) {
+                        push @types, "COREF_TEXT_PRON";
+                    }
+                    else {
+                        push @types, "COREF_TEXT_NOM";
+                    }
+                }
+                # English
+                else {
+                    if ($anode->tag =~ /^(P|DT)/) {
+                        push @types, "COREF_TEXT_PRON";
+                    }
+                    else {
+                        push @types, "COREF_TEXT_NOM";
+                    }
+                }
+            }
+        }
     }
     if (@antes = $tnode->get_coref_gram_nodes) {
-        push @types, "COREF_GRAM";
+        if (@antes > 1) {
+            push @types, "SPLIT_GRAM_ANAPH";
+        }
+        else {
+            push @types, "COREF_GRAM";
+        }
     }
-    if ($tnode->get_attr('coref_special')) {
-        push @types, "COREF_SPECIAL";
+    my ($br_antes, $br_types) = $tnode->get_bridging_nodes();
+    @antes = map {$br_antes->[$_]} grep {$br_types->[$_] eq "SUB_SET"} 0..$#$br_antes;
+    if (@antes) {
+        push @types, "SPLIT_BRIDG_ANAPH";
     }
     if (!@types && defined $self->_id_to_entity->{$tnode->language}{$tnode->id}) {
         push @types, "FIRST_MENTION";
+    }
+    if (my $spec = $tnode->get_attr('coref_special')) {
+        push @types, "COREF_SPECIAL_".uc($spec);
     }
     if (!@types) {
         push @types, "OTHER";
