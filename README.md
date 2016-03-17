@@ -74,3 +74,23 @@ Coreference annotation is represented by the following attributes of tectogramma
 * `bridging`: bridging relations (here represented only by reference to split antecedents)
   * `target_node.rf`: ID of the antecedent
   * `type`: the type of bridging; only `SET_SUBSET` representing reference to split antecedent in PCEDT 2.0 Coref
+
+More information on coreference annotation can be found in the [technical report](http://ufal.mff.cuni.cz/techrep/tr57.pdf).
+
+## Alignment of coreferential expressions
+
+Alignment of tectogrammatical nodes in the original release of PCEDT 2.0 was obtained by running
+the GIZA++ word aligner on the surface representation of sentences, the produced links were projected
+up to the tectogrammatical layer and some heuristics was applied for zeros, i.e. tectogrammatical nodes
+unexpressed on the surface (e.g. dropped subject pronouns).
+In PCEDT 2.0 Coref, improved annotation of alignment of coreferential expressions is introduced, replacing
+the original alignment for the nodes under consideration. The new links come either from manual annotation
+or are produced by a supervised aligner trained on this manual annotation.
+
+The coreferential expressions targeted by improved alignment approach include central pronouns
+(embracing personal, possessive, and reflexive pronouns), relative pronouns, and anaphoric zeros.
+In fact, the set of targeted coreferential nodes was selected using solely the morpho-syntactic attributes,
+without the coreference information itself. Each such node is indicated by the `align_coref` attribute.
+More details on the classes of targeted coreferential expressions can be found in (Novák and Nedoluzhko, 2015).
+
+The manual annotation has been provided for coreferential nodes in sections `wsj_1900`-`49`. 
