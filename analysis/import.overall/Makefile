@@ -9,7 +9,7 @@ covered_node_count :
 
 # the following statistics must be extracted from the treex-run directory created by calling 'make tmp/old_pcedt_new_coref/done LRC=1'
 # the sum of the following statistics accounts for a number of coreferential ID-tlemma pairs missing in the old PCEDT
-TREEX_RUN_DIR=../../tmp/treex_runs/056-run.DzIu/output
+TREEX_RUN_DIR=../../tmp/treex_runs/018-run.z34V/output
 
 different_tlemma_node_count :
 	find $(TREEX_RUN_DIR) -name '*.stderr' | \
