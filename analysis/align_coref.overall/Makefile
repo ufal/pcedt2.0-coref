@@ -11,3 +11,5 @@ pcedt20_coref.stats : $(BASE_DIR)/release/data/done
 
 correspondence_table : pcedt20_coref.stats
 	cat $< | ../align_coref.comparison/merge_node_categories.pl | ./create_correspondence_table.pl
+
+# TODO: the correspondence table shows that many Czech nominal mentions have no counterpart in English. Why does it happen? 
