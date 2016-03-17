@@ -9,17 +9,5 @@ pcedt20_coref.stats : $(BASE_DIR)/release/data/done
 		PCEDT20Coref::AlignCorefStats > \
 	$@
 
-
-all_coref_count : pcedt20_coref.stats
-	cat $< | wc -l
-
-en.pcedt20_coref.stats : pcedt20_coref.stats
-	cat $< | grep "^English" > $@
-cs.pcedt20_coref.stats : pcedt20_coref.stats
-	cat $< | grep -v "^English" > $@
-
-
-%_coref_count : %.pcedt20_coref.stats
-	cat $< | wc -l
-%_coref_types : %.pcedt20_coref.stats
-	cat $< | cut -f2 | distr
+correspondence_table : pcedt20_coref.stats
+	cat $< | ../align_coref.comparison/merge_node_categories.pl | ./create_correspondence_table.pl
