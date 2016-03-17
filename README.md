@@ -39,6 +39,8 @@ in Czech (zero anaphora).
 The release of PCEDT 2.0 Coref (Nedoluzhko et al., 2016) builds upon the original release of PCEDT 2.0 and extends
 it with further types of coreference relations and related phenomena.
 
+### Coreference
+
 The set of coreferential relations with a specific referent is completed here by introducing annotation of nominal
 textual coreference, i.e. coreference links with a nominal group as referring expression.
 
@@ -58,7 +60,6 @@ to find a finest replacement for the missing node. Still, the structural changes
 In that case, our heuristics fails and the coreferential link remains unimported. The following table
 reveals that it concerns only 0.07% of cases. In PCEDT 3.0, all the unimported links will be present.
 
-
 |                    | Count   |
 |:-------------------|--------:|
 | Links to be import | 268,707 |
@@ -66,4 +67,10 @@ reveals that it concerns only 0.07% of cases. In PCEDT 3.0, all the unimported l
 | Missing ID         |     623 |
 | Heuristics failed  |     284 |
 
-TODO: write about the difference in tlemma
+Coreference annotation is represented by the following attributes of tectogrammatical nodes:
+* `coref_gram.rf`: grammatical coreference, contains an ID of the antecedent
+* `coref_text.rf`: textual coreference, contains an ID of the antecedent
+* `coref_special` : reference to a text segment (value `segm`) or exophora (value `exoph`)
+* `bridging`: bridging relations (here represented only by reference to split antecedents)
+  * `target_node.rf`: ID of the antecedent
+  * `type`: the type of bridging; only `SET_SUBSET` representing reference to split antecedent in PCEDT 2.0 Coref
