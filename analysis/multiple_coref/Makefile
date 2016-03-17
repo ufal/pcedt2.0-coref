@@ -3,7 +3,7 @@ SHELL=/bin/bash
 ########### TNODES FROM THE NEW VERSION OF PCEDT FROM WHICH MORE THAN 1 COREF LINK ORIGIN (IN TREEX FORMAT) #####################
 multiple_coref_anaphor.list :
 	treex -p --jobs=100 \
-		Read::Treex from='!tmp/pcedt_treex_unaligned/*/wsj_*.treex.gz' \
+		Read::Treex from='!../../tmp/pcedt_treex_unaligned/*/wsj_*.treex.gz' \
 		Util::Eval tnode='my @antes = $$tnode->get_coref_nodes; if (@antes > 1) {print $$tnode->get_address . "\n";}' \
 	> $@
 
