@@ -50,7 +50,7 @@ The abovementioned new annotation has been in fact conducted hand in hand with a
 All the new annotation, including the annotation work in progress, is planned to be soon 
 released in PCEDT 3.0. As in PCEDT 2.0 Coref we aimed to release only the coreferential extensions,
 we decided to extract all the coreferential relations from the newly annotated data and import it back
-to the original version of PCEDT 2.0. Technically, since every node is specified its ID, it should be easy
+to the original version of PCEDT 2.0. Technically, since every node is specified by its ID, it should be easy
 to import the links by remembering the IDs of the two nodes forming a link. However, due to changes in the other
 annotation in PCEDT, some of the nodes in the new version of PCEDT might not exist in the old version.
 Therefore, we had to adopt a heuristics based on the node's ancestors in the tree and its semantic role
@@ -61,9 +61,9 @@ reveals that it concerns only 0.07% of cases. In PCEDT 3.0, all the unimported l
 
 |                    | Count   |
 |:-------------------|--------:|
-| Links to be import | 259,248 |
-| Covered nodes      | 364,807 |
-| Missing ID         |     612 |
-| Heuristics failed  |     283 |
+| Links to be import | 268,707 |
+| Covered nodes      | 372,038 |
+| Missing ID         |     623 |
+| Heuristics failed  |     284 |
 
 TODO: write about the difference in tlemma
