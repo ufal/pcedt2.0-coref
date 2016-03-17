@@ -1,3 +1,3 @@
-/multiple_coref_anaphor.cs_orig.list
-/multiple_coref_anaphor.en_orig.list
-/multiple_coref_anaphor.list
+/*.list
+# old data with not disambiguated multiple coreference annotation
+/data
