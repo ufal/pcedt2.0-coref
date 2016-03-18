@@ -93,4 +93,9 @@ In fact, the set of targeted coreferential nodes was selected using solely the m
 without the coreference information itself. Each such node is indicated by the `align_coref` attribute.
 More details on the classes of targeted coreferential expressions can be found in (Novák and Nedoluzhko, 2015).
 
-The manual annotation has been provided for coreferential nodes in sections `wsj_1900`-`49`. 
+The manual annotation has been conducted for coreferential nodes in sections `wsj_1900`-`49` by two annotators.
+These alignment links are labeled by the `coref_gold` type. However, for a coreferential node that has no
+aligned counterpart in the other language, one could not determine if it results from a human decision, or
+a decision by one of the automatic alignment methods. For this reason, the `align_coref` attribute is annotated.
+All the tectogrammatical nodes from the sections `wsj_1900`-`49` with this attribute defined and true were
+treated by hand. All the others were aligned using the original alignment, combining GIZA++ and the heuristics.
