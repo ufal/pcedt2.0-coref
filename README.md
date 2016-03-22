@@ -60,12 +60,12 @@ to find a finest replacement for the missing node. Still, the structural changes
 In that case, our heuristics fails and the coreferential link remains unimported. The following table
 reveals that it concerns only 0.07% of cases. In PCEDT 3.0, all the unimported links will be present.
 
-|                    | Count   |
-|:-------------------|--------:|
-| Links to be import | 268,707 |
-| Covered nodes      | 372,038 |
-| Missing ID         |     623 |
-| Heuristics failed  |     284 |
+|                      | Count   |
+|:---------------------|--------:|
+| Links to be imported | 268,707 |
+| Covered nodes        | 372,038 |
+| Missing ID           |     623 |
+| Heuristics failed    |     284 |
 
 Coreference annotation is represented by the following attributes of tectogrammatical nodes:
 * `coref_gram.rf`: grammatical coreference, contains an ID of the antecedent
