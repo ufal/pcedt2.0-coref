@@ -1,4 +1,4 @@
-# Coreference extension to Prague Czech-English Dependency Treebank 2.0
+### Coreference extension to Prague Czech-English Dependency Treebank 2.0
 
 Prague Czech-English Dependency Treebank 2.0 (PCEDT) is a parallel treebank of Czech and English comprising 
 over 1.2 million running words in almost 50,000 sentences for each part. The treebank contains texts
@@ -20,7 +20,7 @@ has been so far developed in two steps:
   2. coreference with split antecedents (i.e. bridging anaphora of the set-subset type)
   3. improved alignment of expressions bound in grammatical and pronomina textual coreference
 
-## PCEDT 2.0 original release
+#### PCEDT 2.0 original release
 
 The original release of PCEDT 2.0 (Hajič et al., 2012) captures annotation of so-called grammatical and pronominal textual coreference
 for both Czech and English. While most of the English textual coreference links were imported from the BBN Pronoun Coreference and Entity Type Corpus, the Czech coreference of the same type was annotated completely from scratch. Both English and Czech grammatical coreference was annotated from scratch, as well.
@@ -34,12 +34,12 @@ context. The pronominal textual coreference includes those coreference links tha
 demonstrative pronoun as referring expression. It also includes pronouns dropped from the surface, especially
 in Czech (zero anaphora).
 
-## PCEDT 2.0 Coref release
+#### PCEDT 2.0 Coref release
 
 The release of PCEDT 2.0 Coref (Nedoluzhko et al., 2016) builds upon the original release of PCEDT 2.0 and extends
 it with further types of coreference relations and related phenomena.
 
-### Coreference
+##### Coreference
 
 The set of coreferential relations with a specific referent is completed here by introducing annotation of nominal
 textual coreference, i.e. coreference links with a nominal group as referring expression.
@@ -77,7 +77,7 @@ Coreference annotation is represented by the following attributes of tectogramma
 
 More information on coreference annotation can be found in the [technical report](http://ufal.mff.cuni.cz/techrep/tr57.pdf).
 
-## Alignment of coreferential expressions
+##### Alignment of coreferential expressions
 
 Alignment of tectogrammatical nodes in the original release of PCEDT 2.0 was obtained by running
 the GIZA++ word aligner on the surface representation of sentences, the produced links were projected
