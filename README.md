@@ -13,12 +13,12 @@ for annotating zero anaphora. Annotation of anaphoric relations and related phen
 has been so far developed in two steps:
 
 1. PCEDT 2.0 original release
-  1. grammatical coreference
-  2. pronominal textual coreference
+    1. grammatical coreference
+    2. pronominal textual coreference
 2. PCEDT 2.0 Coref release
-  1. nominal textual coreference
-  2. coreference with split antecedents (i.e. bridging anaphora of the set-subset type)
-  3. improved alignment of expressions bound in grammatical and pronomina textual coreference
+    1. nominal textual coreference
+    2. coreference with split antecedents (i.e. bridging anaphora of the set-subset type)
+    3. improved alignment of expressions bound in grammatical and pronomina textual coreference
 
 #### PCEDT 2.0 original release
 
@@ -68,12 +68,13 @@ reveals that it concerns only 0.07% of cases. In PCEDT 3.0, all the unimported l
 | Heuristics failed  |     284 |
 
 Coreference annotation is represented by the following attributes of tectogrammatical nodes:
+
 * `coref_gram.rf`: grammatical coreference, contains an ID of the antecedent
 * `coref_text.rf`: textual coreference, contains an ID of the antecedent
 * `coref_special` : reference to a text segment (value `segm`) or exophora (value `exoph`)
 * `bridging`: bridging relations (here represented only by reference to split antecedents)
-  * `target_node.rf`: ID of the antecedent
-  * `type`: the type of bridging; only `SET_SUBSET` representing reference to split antecedent in PCEDT 2.0 Coref
+    * `target_node.rf`: ID of the antecedent
+    * `type`: the type of bridging; only `SET_SUBSET` representing reference to split antecedent in PCEDT 2.0 Coref
 
 More information on coreference annotation can be found in the [technical report](http://ufal.mff.cuni.cz/techrep/tr57.pdf).
 
@@ -115,8 +116,9 @@ The supervised alignment approach is described in a greater detail in (Novák an
 (Nedoluzhko et al., 2016).
 
 The annotation of alignment for tectogrammatical coreferential nodes is represented by the following attributes:
+
 * `align_coref`: defined and true for the nodes whose alignment was treated either manually or using a supervised approach
 * `alignment`: node alignment
-  * `counterpart.rf`: the ID of the aligned counterpart
-  * `type`: type of the alignment; in PCEDT 2.0 Coref the `coref_gold` and `coref_supervised` types are introduced for the
+    * `counterpart.rf`: the ID of the aligned counterpart
+    * `type`: type of the alignment; in PCEDT 2.0 Coref the `coref_gold` and `coref_supervised` types are introduced for the
         counterparts found by hand and by the supervised method, respectively
