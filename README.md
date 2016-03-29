@@ -22,7 +22,7 @@ has been so far developed in two steps:
 
 #### PCEDT 2.0 original release
 
-The original release of PCEDT 2.0 (Hajič et al., 2012) captures annotation of so-called grammatical and pronominal textual coreference
+The original release of PCEDT 2.0 (Hajič et al., 2011; Hajič et al., 2012) captures annotation of so-called grammatical and pronominal textual coreference
 for both Czech and English. While most of the English textual coreference links were imported from the BBN Pronoun Coreference and Entity Type Corpus, the Czech coreference of the same type was annotated completely from scratch. Both English and Czech grammatical coreference was annotated from scratch, as well.
 
 Grammatical coreference comprises several subtypes of relations, which mainly differ in the nature of referring
@@ -36,7 +36,7 @@ in Czech (zero anaphora).
 
 #### PCEDT 2.0 Coref release
 
-The release of PCEDT 2.0 Coref (Nedoluzhko et al., 2016) builds upon the original release of PCEDT 2.0 and extends
+The release of PCEDT 2.0 Coref (Nedoluzhko et al., 2016a, Nedoluzhko et al., 2016b) builds upon the original release of PCEDT 2.0 and extends
 it with further types of coreference relations and related phenomena.
 
 ##### Coreference
@@ -60,12 +60,12 @@ to find a finest replacement for the missing node. Still, the structural changes
 In that case, our heuristics fails and the coreferential link remains unimported. The following table
 reveals that it concerns only 0.07% of cases. In PCEDT 3.0, all the unimported links will be present.
 
-|                    | Count   |
-|:-------------------|--------:|
-| Links to be import | 268,707 |
-| Covered nodes      | 372,038 |
-| Missing ID         |     623 |
-| Heuristics failed  |     284 |
+|                      | Count   |
+|:---------------------|--------:|
+| Links to be imported | 268,707 |
+| Covered nodes        | 372,038 |
+| Missing ID           |     623 |
+| Heuristics failed    |     284 |
 
 Coreference annotation is represented by the following attributes of tectogrammatical nodes:
 
@@ -122,3 +122,11 @@ The annotation of alignment for tectogrammatical coreferential nodes is represen
     * `counterpart.rf`: the ID of the aligned counterpart
     * `type`: type of the alignment; in PCEDT 2.0 Coref the `coref_gold` and `coref_supervised` types are introduced for the
         counterparts found by hand and by the supervised method, respectively
+
+# References
+* Hajič Jan, Hajičová Eva, Panevová Jarmila, Sgall Petr, Cinková Silvie, Fučíková Eva, Mikulová Marie, Pajas Petr, Popelka Jan, Semecký Jiří, Šindlerová Jana, Štěpánek Jan, Toman Josef, Urešová Zdeňka, Žabokrtský Zdeněk: Prague Czech-English Dependency Treebank 2.0. Data/software, Institute of Formal and Applied Linguistics, Prague, Czech republic, http://ufal.mff.cuni.cz/pcedt2.0/, 2011
+* Hajič Jan, Hajičová Eva, Panevová Jarmila, Sgall Petr, Bojar Ondřej, Cinková Silvie, Fučíková Eva, Mikulová Marie, Pajas Petr, Popelka Jan, Semecký Jiří, Šindlerová Jana, Štěpánek Jan, Toman Josef, Urešová Zdeňka, Žabokrtský Zdeněk: Announcing Prague Czech-English Dependency Treebank 2.0. In: Proceedings of the 8th International Conference on Language Resources and Evaluation (LREC 2012), Copyright © European Language Resources Association, İstanbul, Turkey, ISBN 978-2-9517408-7-7, pp. 3153-3160, 2012
+* Nedoluzhko Anna, Novák Michal, Cinková Silvie, Mikulová Marie, Mírovský Jiří: Prague Czech-English Dependency Treebank 2.0 Coref. Data/software, Institute of Formal and Applied Linguistics, Prague, Czech republic, http://ufal.mff.cuni.cz/pcedt2.0-coref/, 2016
+* Nedoluzhko Anna, Novák Michal, Cinková Silvie, Mikulová Marie, Mírovský Jiří: Coreference in Prague Czech-English Dependency Treebank. In: Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016), Copyright © European Language Resources Association, Portorož, Slovenia, ISBN ???, pp. ???-???, 2016
+* Novák Michal, Nedoluzhko Anna: Correspondences between Czech and English Coreferential Expressions. In: Discours: Revue de linguistique, psycholinguistique et informatique., Vol. 16, Copyright © Presses universitaires de Caen, Caen, France, ISSN 1963-1723, pp. 1-41, Sep 2015
+* Novák Michal, Žabokrtský Zdeněk: Cross-lingual Coreference Resolution of Pronouns. In: Proceedings of COLING 2014, the 25th International Conference on Computational Linguistics: Technical Papers, Copyright © Dublin City University and Association for Computational Linguistics, Dublin, Ireland, ISBN 978-1-941643-26-6, pp. 14-24, 2014
