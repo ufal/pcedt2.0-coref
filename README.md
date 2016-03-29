@@ -2,11 +2,11 @@
 
 Prague Czech-English Dependency Treebank 2.0 (PCEDT) is a parallel treebank of Czech and English comprising 
 over 1.2 million running words in almost 50,000 sentences for each part. The treebank contains texts
-from the entire Penn Treebank - Wall Street Jurnal section and its Czech translations. On top of it,
+from the entire Penn Treebank - Wall Street Journal section and its Czech translations. On top of it,
 it includes three levels of rich linguistic annotation: morphological layer (part-of-speech tags, lemmas),
 analytical layer (labeled dependency tree of shallow syntax), and tectogrammatical layer (labeled dependency
 tree of deep syntax). The tectogrammatical tree consists only of the content words, however, new nodes
-unexpressed in a surface representation may be introduced, e.g., dropped pronouns in Czech.
+unexpressed in a surface representation may be introduced, e.g., elided subjects in Czech.
 
 Tectogrammatical layer is also the place where coreference relations are annotated, as it allows
 for annotating zero anaphora. Annotation of anaphoric relations and related phenomena in PCEDT
@@ -17,32 +17,24 @@ has been so far developed in two steps:
     2. pronominal textual coreference
 2. PCEDT 2.0 Coref release
     1. nominal textual coreference
-    2. coreference with split antecedents (i.e. bridging anaphora of the set-subset type)
-    3. improved alignment of expressions bound in grammatical and pronomina textual coreference
+    2. coreference with split antecedents (formally captured as bridging anaphora of the set-subset type)
+    3. improved alignment of expressions bound in grammatical and pronominal textual coreference
 
 #### PCEDT 2.0 original release
 
-The original release of PCEDT 2.0 (Hajič et al., 2011; Hajič et al., 2012) captures annotation of so-called grammatical and pronominal textual coreference
-for both Czech and English. While most of the English textual coreference links were imported from the BBN Pronoun Coreference and Entity Type Corpus, the Czech coreference of the same type was annotated completely from scratch. Both English and Czech grammatical coreference was annotated from scratch, as well.
+The original release of PCEDT 2.0 (Hajič et al., 2011; Hajič et al., 2012) captures annotation of so-called grammatical and pronominal textual coreference for both Czech and English. While most of the English textual coreference links were imported from the BBN Pronoun Coreference and Entity Type Corpus, the Czech coreference of the same type was annotated completely from scratch. Both English and Czech grammatical coreference was annotated from scratch, as well.
 
-Grammatical coreference comprises several subtypes of relations, which mainly differ in the nature of referring
-expressions (e.g. relative pronoun, reflexive pronoun). The common property is that they appear as a consequence
-of language-dependent grammatical rules.
+Grammatical coreference comprises several subtypes of relations, which mainly differ in the nature of referring expressions (e.g. relative pronoun, reflexive pronoun). The common property is that they appear as a consequence of language-dependent grammatical rules.
 
-On the other hand, the arguments of textual coreference are not realized by grammatical means alone, but also via
-context. The pronominal textual coreference includes those coreference links that use a personal, possessive, or
-demonstrative pronoun as referring expression. It also includes pronouns dropped from the surface, especially
-in Czech (zero anaphora).
+On the other hand, the arguments of textual coreference are not realized by grammatical means alone, but also via context. The pronominal textual coreference includes those coreference links that use a personal, possessive, or demonstrative pronoun as referring expression. It also includes pronouns dropped from the surface, especially in Czech (zero anaphora).
 
 #### PCEDT 2.0 Coref release
 
-The release of PCEDT 2.0 Coref (Nedoluzhko et al., 2016a, Nedoluzhko et al., 2016b) builds upon the original release of PCEDT 2.0 and extends
-it with further types of coreference relations and related phenomena.
+The release of PCEDT 2.0 Coref (Nedoluzhko et al., 2016a, Nedoluzhko et al., 2016b) builds upon the original release of PCEDT 2.0 and extends it with further types of coreference relations and related phenomena.
 
 ##### Coreference
 
-The set of coreferential relations with a specific referent is completed here by introducing annotation of nominal
-textual coreference, i.e. coreference links with a nominal group as referring expression.
+The set of coreferential relations with a specific referent is completed here by introducing annotation of nominal textual coreference, i.e. coreference links with a nominal group as referring expression.
 
 Bridging relations are not included in PCEDT 2.0, except for a special case of split antecedents. This is the case
 when the expression is coreferential with the union of antecedents A+B, both present in tectogrammatical structure
@@ -103,7 +95,7 @@ Therefore, if a tectogrammatical node belongs to one of the sections `wsj_1900`-
 it has the `align_coref` attribute defined and true, it is clear that this node was treated by hand.
 On the other hand, all the other nodes were aligned using the original alignment, combining GIZA++ and 
 the heuristics.
-Manual annotation of alignment is elborated in a greater detail in (Novák and Nedoluzhko, 2015).
+Manual annotation of alignment is elaborated in a greater detail in (Novák and Nedoluzhko, 2015).
 
 Supervised aligner has been applied on all the coreferential nodes in PCEDT 2.0 Coref, except for those
 belonging to the sections `wsj_1900`-`49`. The links produced by this aligner are of the `coref_supervised`
