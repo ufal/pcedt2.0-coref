@@ -1,3 +1,5 @@
+.SECONDARY :
+
 publish: ../release/index.html ../release/data.html ../release/documentation.html ../release/licence.html ../release/credits.html ../release/acknowledgment.html
 
 ../release/%.html : release_html/%.html release_html/%.content.html release_html/%.title.html
