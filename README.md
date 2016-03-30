@@ -94,23 +94,23 @@ or are produced by a supervised aligner trained on this manual annotation.
 The coreferential expressions targeted by our improved alignment approach include central pronouns
 (embracing personal, possessive, and reflexive pronouns), relative pronouns, and anaphoric zeros.
 In fact, the set of targeted coreferential nodes was selected using solely the morpho-syntactic attributes,
-without the coreference information itself. Each such node is indicated by the `align_coref` attribute.
+without the coreference information itself. Each such node is indicated by the `is_align_coref` attribute.
 More details on the classes of targeted coreferential expressions can be found in (Novák and Nedoluzhko, 2015).
 
 The manual annotation has been conducted by two annotators for coreferential nodes in Sections `wsj_1900`-`49`.
 These alignment links are labeled by the `coref_gold` type. However, for a coreferential node that has no
 aligned counterpart in the other language, one could not determine if the absence of alignment  is a result 
 of a human decision or a decision by one of the automatic alignment methods. 
-The `align_coref` attribute is annotated for this purpose.
+The `is_align_coref` attribute is annotated for this purpose.
 Therefore, if a tectogrammatical node belongs to one of Sections `wsj_1900`-`49` and
-it has the `align_coref` attribute defined and true, it is clear that this node was treated by hand.
+it has the `is_align_coref` attribute defined and true, it is clear that this node was treated by hand.
 On the other hand, all the other nodes were aligned using the original alignment, combining GIZA++ and 
 the heuristics.
 The manual annotation of alignment is elaborated in greater detail in (Novák and Nedoluzhko, 2015).
 
 A supervised aligner has been applied on all the coreferential nodes in PCEDT 2.0 Coref, except for those
 belonging to Sections `wsj_1900`-`49`. The links produced by this aligner are of the `coref_supervised`
-type. Analogous to the manual annotation, the `align_coref` attribute serves to indicate all the nodes
+type. Analogous to the manual annotation, the `is_align_coref` attribute serves to indicate all the nodes
 treated by supervised approach, even those eventually with no counterpart.
 The supervised method was trained on the manually annotated data from Sections `wsj_1900`-`49`,
 using the features capturing the original GIZA++ alignment and the topology of tectogrammatical trees
@@ -120,7 +120,7 @@ The supervised alignment approach is described in a greater detail in (Novák an
 
 The annotation of alignment for tectogrammatical coreferential nodes is represented by the following attributes:
 
-* `align_coref`: defined and true for the nodes whose alignment was treated either manually or using a supervised approach
+* `is_align_coref`: defined and true for the nodes whose alignment was treated either manually or using a supervised approach
 * `alignment`: node alignment
     * `counterpart.rf`: the ID of the aligned counterpart
     * `type`: type of the alignment; in PCEDT 2.0 Coref the `coref_gold` and `coref_supervised` types are introduced for the
