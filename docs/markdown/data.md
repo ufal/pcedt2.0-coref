@@ -6,7 +6,7 @@ per document.
 
 The data are stored in the Treex format, which is an application of the Prague Markup Language 
 ([PML](http://ufal.mff.cuni.cz/jazz/PML/index_en.html); Pajas and Štěpánek, 2008),
-a XML-based format designed for linguistic treebank annotations. For the sake of completeness, PML schemata describing 
+an XML-based format designed for linguistic treebank annotations. For the sake of completeness, PML schemata describing 
 the structure of the Treex files are enclosed in the `resources` directory.
 
 ### How to browse the data
