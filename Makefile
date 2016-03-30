@@ -99,3 +99,17 @@ release/data/done : tmp/old_pcedt_sup_ali/done
 		Util::Eval tnode='$$tnode->set_wild();' \
 		Write::Treex substitute='{$(dir $<)/(..)/(.*)$$}{$(dir $@)/$$1/$$2}'
 	touch $@
+
+##################################################################################################################################
+############################### FINALIZE THE REST: SCHEMA FILES, TECHNICAL REPORT ################################################
+##################################################################################################################################
+
+finalize : schema techrep
+
+schema : $(TREEX_DIR)/Core/share/tred_extension/treex/resources/treex*.xml
+	mkdir -p release/resources
+	cp $^ release/resources
+
+techrep :
+	mkdir release/doc
+	wget -O release/doc/tr57.pdf http://ufal.mff.cuni.cz/techrep/tr57.pdf
