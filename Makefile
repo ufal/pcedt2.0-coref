@@ -113,3 +113,10 @@ schema : $(TREEX_DIR)/Core/share/tred_extension/treex/resources/treex*.xml
 techrep :
 	mkdir release/doc
 	wget -O release/doc/tr57.pdf http://ufal.mff.cuni.cz/techrep/tr57.pdf
+
+pack :
+	mv release/data/done done
+	mv release pcedt2.0-coref
+	zip -r pcedt2.0-coref.zip pcedt2.0-coref
+	mv pcedt2.0-coref release
+	mv done release/data/done
